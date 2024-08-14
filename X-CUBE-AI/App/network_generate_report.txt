@@ -1,0 +1,207 @@
+STEdgeAI Core v9.0.0-19802
+Created date          : 2024-08-13 17:58:03
+Parameters            : generate --target stm32f4 --name network -m C:/Users/pchen/Downloads/model_quantized.tflite --compression none --verbosity 1 --allocate-inputs --allocate-outputs --workspace C:/Users/pchen/AppData/Local/Temp/mxAI_workspace102809061925470011922422645945097590 --output C:/Users/pchen/.stm32cubemx/network_output
+
+Exec/report summary (generate)
+--------------------------------------------------------------------------------------------------------------
+model file         :   C:\Users\pchen\Downloads\model_quantized.tflite                                        
+type               :   tflite                                                                                 
+c_name             :   network                                                                                
+compression        :   none                                                                                   
+options            :   allocate-inputs, allocate-outputs                                                      
+optimization       :   balanced                                                                               
+target/series      :   stm32f4                                                                                
+workspace dir      :   C:\Users\pchen\AppData\Local\Temp\mxAI_workspace102809061925470011922422645945097590   
+output dir         :   C:\Users\pchen\.stm32cubemx\network_output                                             
+model_fmt          :   ss/sa per channel                                                                      
+model_name         :   model_quantized                                                                        
+model_hash         :   0x27008ca46ae5edc66435650ff2c01038                                                     
+params #           :   22,614 items (22.80 KiB)                                                               
+--------------------------------------------------------------------------------------------------------------
+input 1/1          :   'serving_default_keras_tensor_770', f32(1x90x1), 360 Bytes, activations                
+output 1/1         :   'conversion_7', f32(1x6), 24 Bytes, activations                                        
+macc               :   22,806                                                                                 
+weights (ro)       :   23,352 B (22.80 KiB) (1 segment) / -67,104(-74.2%) vs float model                      
+activations (rw)   :   1,680 B (1.64 KiB) (1 segment) *                                                       
+ram (total)        :   1,680 B (1.64 KiB) = 1,680 + 0 + 0                                                     
+--------------------------------------------------------------------------------------------------------------
+(*) 'input'/'output' buffers can be used from the activations buffer
+
+Model name - model_quantized
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+m_id   layer (type,original)                        oshape           param/size          macc                       connected to   | c_size          c_macc             c_type              
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+0      serving_default_keras_tensor_770 (Input, )   [b:1,h:90,c:1]                                                                 |                 +180(+100.0%)      Conversion_[0]      
+       conversion_0 (Conversion, QUANTIZE)          [b:1,h:90,c:1]                        180   serving_default_keras_tensor_770   |                 -180(-100.0%)      
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+1      reshape_1 (Reshape, RESHAPE)                 [b:1,c:90]                                                      conversion_0   |                                    
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+2      tfl_pseudo_qconst9 (Placeholder, )           [h:128,c:90]     11,520/11,520                                                 | +512(+4.4%)     +11,648(+100.0%)   Dense_[1]           
+       tfl_pseudo_qconst8 (Placeholder, )           [c:128]          128/512                                                       | -512(-100.0%)                      
+       gemm_2 (Gemm, FULLY_CONNECTED)               [b:1,c:128]                        11,648                          reshape_1   |                 -11,648(-100.0%)   
+                                                                                                              tfl_pseudo_qconst9   | 
+                                                                                                              tfl_pseudo_qconst8   | 
+       nl_2_nl (Nonlinearity, FULLY_CONNECTED)      [b:1,c:128]                           128                             gemm_2   |                 -128(-100.0%)      
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+3      tfl_pseudo_qconst7 (Placeholder, )           [h:64,c:128]     8,192/8,192                                                   | +256(+3.1%)     +8,256(+100.0%)    Dense_[2]           
+       tfl_pseudo_qconst6 (Placeholder, )           [c:64]           64/256                                                        | -256(-100.0%)                      
+       gemm_3 (Gemm, FULLY_CONNECTED)               [b:1,c:64]                          8,256                            nl_2_nl   |                 -8,256(-100.0%)    
+                                                                                                              tfl_pseudo_qconst7   | 
+                                                                                                              tfl_pseudo_qconst6   | 
+       nl_3_nl (Nonlinearity, FULLY_CONNECTED)      [b:1,c:64]                             64                             gemm_3   |                 -64(-100.0%)       
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+4      tfl_pseudo_qconst5 (Placeholder, )           [h:32,c:64]      2,048/2,048                                                   | +128(+6.2%)     +2,080(+100.0%)    Dense_[3]           
+       tfl_pseudo_qconst4 (Placeholder, )           [c:32]           32/128                                                        | -128(-100.0%)                      
+       gemm_4 (Gemm, FULLY_CONNECTED)               [b:1,c:32]                          2,080                            nl_3_nl   |                 -2,080(-100.0%)    
+                                                                                                              tfl_pseudo_qconst5   | 
+                                                                                                              tfl_pseudo_qconst4   | 
+       nl_4_nl (Nonlinearity, FULLY_CONNECTED)      [b:1,c:32]                             32                             gemm_4   |                 -32(-100.0%)       
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+5      tfl_pseudo_qconst3 (Placeholder, )           [h:16,c:32]      512/512                                                       | +64(+12.5%)     +528(+100.0%)      Dense_[4]           
+       tfl_pseudo_qconst2 (Placeholder, )           [c:16]           16/64                                                         | -64(-100.0%)                       
+       gemm_5 (Gemm, FULLY_CONNECTED)               [b:1,c:16]                            528                            nl_4_nl   |                 -528(-100.0%)      
+                                                                                                              tfl_pseudo_qconst3   | 
+                                                                                                              tfl_pseudo_qconst2   | 
+       nl_5_nl (Nonlinearity, FULLY_CONNECTED)      [b:1,c:16]                             16                             gemm_5   |                 -16(-100.0%)       
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+6      tfl_pseudo_qconst1 (Placeholder, )           [h:6,c:16]       96/96                                                         | +24(+25.0%)     +102(+100.0%)      Dense_[5]           
+       tfl_pseudo_qconst (Placeholder, )            [c:6]            6/24                                                          | -24(-100.0%)                       
+       gemm_6 (Gemm, FULLY_CONNECTED)               [b:1,c:6]                             102                            nl_5_nl   |                 -102(-100.0%)      
+                                                                                                              tfl_pseudo_qconst1   | 
+                                                                                                               tfl_pseudo_qconst   | 
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+7      conversion_7 (Conversion, DEQUANTIZE)        [b:1,c:6]                              12                             gemm_6   |                                    Conversion_[o][6]   
+------ -------------------------------------------- ---------------- --------------- -------- ---------------------------------- --- --------------- ------------------ ------------------- 
+model/c-model: macc=23,046/22,806 -240(-1.0%) weights=23,352/23,352  activations=--/1,680 io=--/0
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : model_quantized
+c-name                : network
+c-node #              : 7
+c-array #             : 23
+activations size      : 1680 (1 segment)
+weights size          : 23352 (1 segment)
+macc                  : 22806
+inputs                : ['serving_default_keras_tensor_770_output']
+outputs               : ['conversion_7_output']
+
+C-Arrays (23)
+------ ----------------------------------------- ------------- ------------------------- ----------- --------- 
+c_id   name (*_array)                            item/size     domain/mem-pool           c-type      comment   
+------ ----------------------------------------- ------------- ------------------------- ----------- --------- 
+0      conversion_0_output                       90/90         activations/**default**   s8                    
+1      conversion_7_output                       6/24          activations/**default**   float       /output   
+2      gemm_2_bias                               128/512       weights/weights           const s32             
+3      gemm_2_output                             128/128       activations/**default**   s8                    
+4      gemm_2_scratch0                           730/1460      activations/**default**   s16                   
+5      gemm_2_weights                            11520/11520   weights/weights           const s8              
+6      gemm_3_bias                               64/256        weights/weights           const s32             
+7      gemm_3_output                             64/64         activations/**default**   s8                    
+8      gemm_3_scratch0                           448/896       activations/**default**   s16                   
+9      gemm_3_weights                            8192/8192     weights/weights           const s8              
+10     gemm_4_bias                               32/128        weights/weights           const s32             
+11     gemm_4_output                             32/32         activations/**default**   s8                    
+12     gemm_4_scratch0                           224/448       activations/**default**   s16                   
+13     gemm_4_weights                            2048/2048     weights/weights           const s8              
+14     gemm_5_bias                               16/64         weights/weights           const s32             
+15     gemm_5_output                             16/16         activations/**default**   s8                    
+16     gemm_5_scratch0                           112/224       activations/**default**   s16                   
+17     gemm_5_weights                            512/512       weights/weights           const s8              
+18     gemm_6_bias                               6/24          weights/weights           const s32             
+19     gemm_6_output                             6/6           activations/**default**   s8                    
+20     gemm_6_scratch0                           46/92         activations/**default**   s16                   
+21     gemm_6_weights                            96/96         weights/weights           const s8              
+22     serving_default_keras_tensor_770_output   90/360        activations/**default**   float       /input    
+------ ----------------------------------------- ------------- ------------------------- ----------- --------- 
+
+C-Layers (7)
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+c_id   name (*_layer)   id   layer_type    macc    rom     tensors                                      shape (array id)   
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+0      conversion_0     0    Conversion    180     0       I: serving_default_keras_tensor_770_output   f32(1x90x1) (22)   
+                                                           O: conversion_0_output                       int8(1x90x1) (0)   
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+1      gemm_2           2    Dense         11648   12032   I: conversion_0_output                       int8(1x90x1) (0)   
+                                                           S: gemm_2_scratch0                                              
+                                                           W: gemm_2_weights                            int8(128x90) (5)   
+                                                           W: gemm_2_bias                               int32(128) (2)     
+                                                           O: gemm_2_output                             int8(1x128) (3)    
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+2      gemm_3           3    Dense         8256    8448    I: gemm_2_output                             int8(1x128) (3)    
+                                                           S: gemm_3_scratch0                                              
+                                                           W: gemm_3_weights                            int8(64x128) (9)   
+                                                           W: gemm_3_bias                               int32(64) (6)      
+                                                           O: gemm_3_output                             int8(1x64) (7)     
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+3      gemm_4           4    Dense         2080    2176    I: gemm_3_output                             int8(1x64) (7)     
+                                                           S: gemm_4_scratch0                                              
+                                                           W: gemm_4_weights                            int8(32x64) (13)   
+                                                           W: gemm_4_bias                               int32(32) (10)     
+                                                           O: gemm_4_output                             int8(1x32) (11)    
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+4      gemm_5           5    Dense         528     576     I: gemm_4_output                             int8(1x32) (11)    
+                                                           S: gemm_5_scratch0                                              
+                                                           W: gemm_5_weights                            int8(16x32) (17)   
+                                                           W: gemm_5_bias                               int32(16) (14)     
+                                                           O: gemm_5_output                             int8(1x16) (15)    
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+5      gemm_6           6    Dense         102     120     I: gemm_5_output                             int8(1x16) (15)    
+                                                           S: gemm_6_scratch0                                              
+                                                           W: gemm_6_weights                            int8(6x16) (21)    
+                                                           W: gemm_6_bias                               int32(6) (18)      
+                                                           O: gemm_6_output                             int8(1x6) (19)     
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+6      conversion_7     7    Conversion    12      0       I: gemm_6_output                             int8(1x6) (19)     
+                                                           O: conversion_7_output                       f32(1x6) (1)       
+------ ---------------- ---- ------------- ------- ------- -------------------------------------------- ------------------ 
+
+
+
+Number of operations per c-layer
+------- ------ --------------------------- -------- ------------- 
+c_id    m_id   name (type)                      #op          type 
+------- ------ --------------------------- -------- ------------- 
+0       0      conversion_0 (Conversion)        180   smul_f32_s8 
+1       2      gemm_2 (Dense)                11,648    smul_s8_s8 
+2       3      gemm_3 (Dense)                 8,256    smul_s8_s8 
+3       4      gemm_4 (Dense)                 2,080    smul_s8_s8 
+4       5      gemm_5 (Dense)                   528    smul_s8_s8 
+5       6      gemm_6 (Dense)                   102    smul_s8_s8 
+6       7      conversion_7 (Conversion)         12   smul_s8_f32 
+------- ------ --------------------------- -------- ------------- 
+total                                        22,806 
+
+Number of operation types
+---------------- -------- ----------- 
+operation type          #           % 
+---------------- -------- ----------- 
+smul_f32_s8           180        0.8% 
+smul_s8_s8         22,614       99.2% 
+smul_s8_f32            12        0.1% 
+
+Complexity report (model)
+------ ---------------------------------- ------------------------- ------------------------- ------ 
+m_id   name                               c_macc                    c_rom                     c_id   
+------ ---------------------------------- ------------------------- ------------------------- ------ 
+0      serving_default_keras_tensor_770   |                  0.8%   |                  0.0%   [0]    
+2      tfl_pseudo_qconst9                 ||||||||||||||||  51.1%   ||||||||||||||||  51.5%   [1]    
+3      tfl_pseudo_qconst7                 |||||||||||       36.2%   |||||||||||       36.2%   [2]    
+4      tfl_pseudo_qconst5                 |||                9.1%   |||                9.3%   [3]    
+5      tfl_pseudo_qconst3                 |                  2.3%   |                  2.5%   [4]    
+6      tfl_pseudo_qconst1                 |                  0.4%   |                  0.5%   [5]    
+7      conversion_7                       |                  0.1%   |                  0.0%   [6]    
+------ ---------------------------------- ------------------------- ------------------------- ------ 
+macc=22,806 weights=23,352 act=1,680 ram_io=0
+
+Generated files (7)
+------------------------------------------------------------------ 
+C:\Users\pchen\.stm32cubemx\network_output\network_data_params.h   
+C:\Users\pchen\.stm32cubemx\network_output\network_data_params.c   
+C:\Users\pchen\.stm32cubemx\network_output\network_data.h          
+C:\Users\pchen\.stm32cubemx\network_output\network_data.c          
+C:\Users\pchen\.stm32cubemx\network_output\network_config.h        
+C:\Users\pchen\.stm32cubemx\network_output\network.h               
+C:\Users\pchen\.stm32cubemx\network_output\network.c               

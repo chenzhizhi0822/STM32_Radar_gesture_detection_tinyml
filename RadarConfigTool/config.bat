@@ -1,0 +1,1 @@
+..\RadarConfigTool\bgt60-configurator-cli.exe -c ..\RadarConfigTool\config.json -o ..\sensor-xensiv-bgt60trxx-master\presence_radar_settings.h
