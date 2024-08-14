@@ -1,0 +1,11 @@
+-IC:/Users/pchen/Downloads/6\ gesture\ data/codegen/lib/start_judge
+-IC:/Users/pchen/Downloads/6\ gesture\ data
+-IC:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/armcortexmbase/scheduler/include
+-IC:/Program\ Files/MATLAB/R2022b/rtw/c/src/ext_mode/serial
+-I/Libraries/CMSIS/ST/STM32F4xx/Include
+-IC:/ProgramData/MATLAB/SupportPackages/R2022b/3P.instrset/cmsis.instrset/CMSIS/Include
+-I/Project/Peripheral_Examples/SysTick
+-I/Libraries/STM32F4xx_StdPeriph_Driver/inc
+-IC:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/stm32f4discovery/include
+-IC:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/armcortexmbase/cmsis_rtos_rtx/include
+-IC:/Program\ Files/MATLAB/R2022b/extern/include
