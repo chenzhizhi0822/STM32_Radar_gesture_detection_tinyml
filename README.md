@@ -1,10 +1,10 @@
 # STM32_gesture_detection
 # TinyML 的 STM32 实现流程 & 手势识别项目实现
 
-### 流程图：
+### 主循环逻辑：
 ![image](https://github.com/user-attachments/assets/c3bd0b98-ef03-44b3-9a84-54c5ff51f698)
 
-### 主循环逻辑：
+### 流程图：
 ![image](https://github.com/user-attachments/assets/a53e0982-1471-436a-8e42-4a9655617c1c)
 
 ### 准备: 
